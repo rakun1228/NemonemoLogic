@@ -23,7 +23,8 @@ public class GameOver extends JDialog     // 스윙의 JDialog 상속
     this.addWindowListener(this);
     this.setLayout(new BorderLayout(15,15));
     this.setFont(new Font("SansSerif", Font.BOLD, 14));
-
+    parent.board.over=true;
+    parent.timer.stop=true;
     createAboutPanel();
   }  
 
@@ -31,15 +32,20 @@ public class GameOver extends JDialog     // 스윙의 JDialog 상속
   {
     if(e.getSource()==newgame){
     	parent.showOpenDialog();
-    	parent.heart.re=true;
-    	parent.heart.repaint();
+	    if(parent.fd.getFile()!=null) {	//게임 오버 후 새로 파일 로드한 경우
+	    	parent.retrySet();
+	    	/*
+	    	parent.re=true;
+	    	parent.board.over=true; //도중출력 중지
+	    	parent.heart.repaint();
+	    	parent.timer.end=true;
+	    	parent.timer.setNewTimer();
+	    	*/
+	    }
     	this.dispose();
     }else if(e.getSource()==retry){
-    	parent.heart.re=true;
-    	parent.heart.repaint();
-    	parent.board.clearBoard();
-    	parent.board.over=false;
-    	parent.board.repaint();
+    	parent.retrySet();
+    	parent.timer.stop=false;
     	this.dispose();
     }else if(e.getSource()==exit){
     	System.exit(0);    	
@@ -51,9 +57,10 @@ public class GameOver extends JDialog     // 스윙의 JDialog 상속
     aboutPanel= new JPanel();
     aboutPanel.setLayout(null);
     
-    showOver = new JLabel("Game Over");
+    showOver = new JLabel("Game Over!");
     aboutPanel.add(showOver);
-    showOver.setBounds(88, 20, 240, 30);
+    showOver.setFont(new Font("SansSerif", Font.BOLD, 20));
+    showOver.setBounds(68, 15, 240, 30);
     
     newgame= new JButton("New Game");
     newgame.addActionListener(this);

@@ -11,8 +11,6 @@ public class Heart extends Canvas {
 	private static int heartCnt=5;
 	private int life;
 	GameOver over;
-	boolean re=false;
-	
 	Nemonemo parent;   // Nemonemo 클래스의 객체를 저장
 
 	Image offScr;           // 더블버퍼링을 위한 가상 화면
@@ -43,22 +41,22 @@ public class Heart extends Canvas {
 			life--;
 			repaint();
 			over = new GameOver(parent);
-	    	parent.board.clearBoard();
+	    	parent.board.resetBoard();
 			over.setVisible(true);
 			}
-		else 
+		else {
 			if(life>1)
-			life--;
-		else
-			return;
-		
+				life--;
+			else
+				return;
+		}
 		repaint();
 	}
 	
 	public void paint(Graphics g) {
-		if(re) {
+		if(parent.re) {
 			setLife(3);
-			re=false;
+			parent.re=false;
 		}
 		offScr= createImage(121, 81);  // 가상 화면 생성
 	    offG  = offScr.getGraphics();

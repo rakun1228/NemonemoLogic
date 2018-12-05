@@ -17,7 +17,7 @@ public class Column extends Canvas  // Canvas 클래스를 상속
 
   public void getColumn()  // 데이터에 맞춰 컬럼의 숫자를 생성
   {
-    for(int i=0; i<10; i++)  // 모든 열에 연속한 '1'의 개수를 계산
+    for(int i=0; i<parent.size; i++)  // 모든 열에 연속한 '1'의 개수를 계산
       parent.numOfColumn[i]= getNumber(i); 
   }
 
@@ -26,7 +26,7 @@ public class Column extends Canvas  // Canvas 클래스를 상속
     int count= 0;  // 연속된 '1'의 개수
     int pos= 0;  // 몇 번째 연속된 '1'의 개수를 나타내는 수인지를 표시
 
-    for(int i=start; i<100; i+=10)  // 같은 열에 속한 data의 값을 비교
+    for(int i=start; i<parent.size*parent.size; i+=parent.size)  // 같은 열에 속한 data의 값을 비교
     {
       if(parent.data.charAt(i)=='0' && count>0){  // 연속하지 않은 경우('0'인 경우)
         parent.columnNums[start][pos++]= count;
@@ -44,33 +44,33 @@ public class Column extends Canvas  // Canvas 클래스를 상속
 
   public void paint(Graphics g)
   {
-    offScr= createImage(201, 121);  // 가상 화면 생성
+    offScr= createImage(20*parent.size+1, 20*parent.maxNum+1);  // 가상 화면 생성
     offG  = offScr.getGraphics();
     if(parent.mouseX!=-1){
       offG.setColor(Color.yellow);
-      offG.fillRect(20*parent.mouseX,0,19,120);  // 마우스 커서가 있는 열의 경우
+      offG.fillRect(20*parent.mouseX,0,19,20*parent.maxNum);  // 마우스 커서가 있는 열의 경우
     }
     offG.setColor(Color.black);
 
-    for(int i=0; i<10; i++)
+    for(int i=0; i<parent.size; i++)
     {
       offG.drawLine(i*20, 0, i*20, 220);
       for(int j=0; j<parent.numOfColumn[i]; j++)  // 숫자 출력
         if(String.valueOf(parent.columnNums[i][j]).length()<2){
-          offG.drawString(String.valueOf(parent.columnNums[i][j]), i*20+9, (100 - parent.numOfColumn[i]*20 + j*20)+39);
+          offG.drawString(String.valueOf(parent.columnNums[i][j]), i*20+9, (20*parent.maxNum - parent.numOfColumn[i]*20 + j*20)+19);
         }else{
-          offG.drawString(String.valueOf(parent.columnNums[i][j]), i*20+1, (100 - parent.numOfColumn[i]*20 + j*20)+39);
+          offG.drawString(String.valueOf(parent.columnNums[i][j]), i*20+1, (20*parent.maxNum - parent.numOfColumn[i]*20 + j*20)+19);
         }
     }
 
-    for(int i=0; i<=200; i+=100)
+    for(int i=0; i<=20*parent.size; i+=100)
     {
-      offG.drawLine(i-1, 0, i-1, 120);
-      offG.drawLine(i+1, 0, i+1, 120);
+      offG.drawLine(i-1, 0, i-1, 20*parent.maxNum);
+      offG.drawLine(i+1, 0, i+1, 20*parent.maxNum);
     }
 
-    offG.drawLine(200, 0, 200, 120);
-    offG.drawLine(0, 120, 20*10, 120);
+    offG.drawLine(20*parent.size, 0, 20*parent.size, 20*parent.maxNum);
+    offG.drawLine(0, 20*parent.maxNum, 20*parent.size, 20*parent.maxNum);
 
     g.drawImage(offScr, 0, 0, this);
   }
