@@ -63,6 +63,10 @@ public class Nemonemo extends CloseableFrame // JFrame으로부터 상속받은 Closeabl
 
   public Nemonemo()
   {
+	  setData();
+  }
+  public void setData() {
+	  
 	  if(Mode==0) {
 		  data= "0001000000011100001101010000101111111110111111111000011111100001111100000100010000010001000011001100"; // 문제의 정답(초기값은 강아지)
 	  }
@@ -70,6 +74,7 @@ public class Nemonemo extends CloseableFrame // JFrame으로부터 상속받은 Closeabl
 		  data="";
 		  randominitialize();
 	  }
+	  
 	  this.setTitle("Nemonemo Logic"); // 애플리케이션 창의 타이틀(제목) 설정
 	  this.setSize(20*(size+maxNum)+150, 20*(size+maxNum)+80);
 //    this.setSize(331, 381); // 애플리케이션의 크기 설정
@@ -121,7 +126,6 @@ public class Nemonemo extends CloseableFrame // JFrame으로부터 상속받은 Closeabl
     timer.repaint();
   
   }
-
   public void createMenus()
   {
     this.setJMenuBar(menuBar);
@@ -194,7 +198,7 @@ public class Nemonemo extends CloseableFrame // JFrame으로부터 상속받은 Closeabl
     	timer.stop=true;
     	showOpenDialog();
     	if(f!=null) { //메뉴바 - new game - 새 게임을 불러온 경우	
-    		
+//    		timer.stop=true;
     		retrySet();
 /*
      		timer.timer.cancel();
@@ -204,7 +208,8 @@ public class Nemonemo extends CloseableFrame // JFrame으로부터 상속받은 Closeabl
 	    	heart.repaint();
 */
     		}
-    	timer.stop=false;
+    	if(heart.cntLife()!=0)
+    		timer.stop=false;
       
     }else if(cmd.equals("answerGame")){ // Answer를 선택하면 정답을 출력
       this.endFlag= true;

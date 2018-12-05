@@ -36,6 +36,10 @@ public class Heart extends Canvas {
 		parent.heart.repaint();
 	}
 	
+	public int cntLife() {
+		return life;
+	}
+	
 	public void minusHeart() {
 		if(life==1) {
 			life--;

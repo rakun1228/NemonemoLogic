@@ -25,6 +25,7 @@ public class ModeSelect extends JDialog implements ActionListener, WindowListene
 	  {
 	    super(parent, "Select Mode", true);  // 다이얼로그(대화상자)의 타이틀(제목) 설정
 	    this.parent=parent;
+	    parent.endFlag=false;
 	    this.setSize(450, 230);                            // 다이얼로그의 크기 설정
 	    this.addWindowListener(this);
 	    setModeSelect();
@@ -93,37 +94,63 @@ public class ModeSelect extends JDialog implements ActionListener, WindowListene
 	    
 
 	}
+	public void removeComponent() {
 
+		parent.contentPane.removeAll();
+		parent.menuBar.removeAll();
+		parent.gameMenu.removeAll();
+		parent.helpMenu.removeAll();
+	}
 	public void actionPerformed(ActionEvent e)
 	  {
 	    if(e.getSource()==n10){
 	    	parent.size=10;
 	    	parent.Mode=0;
+	    	removeComponent();
+	    	parent.setData();
+	    	parent.retrySet();
 	    	this.dispose();
 	    }
 	    else if(e.getSource()==r10){
 	    	parent.size=10;
 	    	parent.Mode=1;
+	    	removeComponent();
+	    	parent.setData();
+	    	parent.retrySet();
 	    	this.dispose();
 		}
 	    else if(e.getSource()==r15){
 	    	parent.size=15;
 	    	parent.Mode=1;
+	    	removeComponent();
+	    	parent.setData();
+	    	parent.timer.closeTimer();
+	    	parent.retrySet();
 	    	this.dispose();
 		}
 	    else if(e.getSource()==r20){
 	    	parent.size=20;
 	    	parent.Mode=1;
+	    	removeComponent();
+	    	parent.setData();
+	    	parent.timer.closeTimer();
+	    	parent.retrySet();
 	    	this.dispose();
 		}
 	    else if(e.getSource()==r25){
 	    	parent.size=25;
 	    	parent.Mode=1;
+	    	removeComponent();
+	    	parent.setData();
+	    	parent.retrySet();
 	    	this.dispose();
 		}
 	    else if(e.getSource()==r30){
 	    	parent.size=30;
 	    	parent.Mode=1;
+	    	removeComponent();
+	    	parent.setData();
+	    	parent.retrySet();
 	    	this.dispose();
 		}
 	    

@@ -42,7 +42,8 @@ public class Board extends Canvas  // Canvas 클래스를 상속
       for(int i=0; i<parent.size; i++)
       {
         if(parent.endFlag){  // 게임이 끝난 경우
-          if(parent.data.charAt(j*parent.size+i)=='1'){
+         parent.timer.stop=true; 
+         if(parent.data.charAt(j*parent.size+i)=='1'){
             offG.fillRect(i*20, j*20, 20, 20); // 칸을 채워서 문제가 풀렸음을 표시
           }
         }else{
